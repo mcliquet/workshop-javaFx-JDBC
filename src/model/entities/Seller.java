@@ -71,8 +71,8 @@ public class Seller implements Serializable{
 		return department;
 	}
 
-	public void setDepartment(Department department) {
-		this.department = department;
+	public void setDepartment(Department object) {
+		this.department = object;
 	}
 
 	@Override
