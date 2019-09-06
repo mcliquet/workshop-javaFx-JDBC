@@ -92,7 +92,7 @@ public class SellerListController implements Initializable, DataChangeListener{
 		tableViewSeller.prefHeightProperty().bind(stage.heightProperty());
 	}
 	
-	private void updateTableView() {
+	public void updateTableView() {
 		if (service == null) {
 			throw new IllegalStateException("Service was null");
 		}
