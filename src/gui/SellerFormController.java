@@ -67,8 +67,6 @@ public class SellerFormController implements Initializable {
 	@FXML
 	private ComboBox<Department> comboBoxDepartment;
 	
-	private ObservableList<Department> obsList;
-	
 	@FXML
 	private Label labelErrorName;
 	
@@ -87,29 +85,19 @@ public class SellerFormController implements Initializable {
 	@FXML
 	private Button btCancel;
 	
+	private ObservableList<Department> obsList;
+	
 	public void setSeller(Seller entity) {
 		this.entity = entity;
 	}
 	
-	public void setSellerService(SellerService service) {
+	public void setServices(SellerService service, DepartmentService departmentService) {
 		this.service = service;
+		this.departmentService = departmentService;
 	}
 	
 	public void subscribeDataChangeListener(DataChangeListener listener) {
 		dataChangeListeners.add(listener);
-	}
-	
-	@FXML
-	public void onComboBoxDepartmentAction() {
-		Callback<ListView<Department>, ListCell<Department>> factory = lv -> new ListCell<Department>() {
-			@Override
-			protected void updateItem(Department item, boolean empty) {
-				super.updateItem(item, empty);
-				setText(empty ? "" : item.getName());
-			}
-		};
-		comboBoxDepartment.setCellFactory(factory);
-		comboBoxDepartment.setButtonCell(factory.call(null));
 	}
 	
 	@FXML
@@ -199,7 +187,7 @@ public class SellerFormController implements Initializable {
 		Constraints.setTextFieldMaxLength(txtEmail, 60);
 		Util.formatDatePicker(dpBirthDate, "dd/MM/yyyy");
 		
-		onComboBoxDepartmentAction();
+		initializeComboBoxDepartmentAction();
 	}
 	
 	public void updateFormData() {
@@ -214,6 +202,7 @@ public class SellerFormController implements Initializable {
 		if (entity.getBirthDate() != null) {
 			dpBirthDate.setValue(LocalDate.ofInstant(entity.getBirthDate().toInstant(), ZoneId.systemDefault()));
 		}
+		
 		if (entity.getDepartment() == null) {
 			comboBoxDepartment.getSelectionModel().selectFirst();
 		} else {
@@ -237,6 +226,19 @@ public class SellerFormController implements Initializable {
 		labelErrorEmail.setText((fields.contains("email") ? errors.get("email") : ""));
 		labelErrorBirthDate.setText((fields.contains("birthDate") ? errors.get("birthDate") : ""));
 		labelErrorBaseSalary.setText((fields.contains("baseSalary") ? errors.get("baseSalary") : ""));
+	}
+	
+	@FXML
+	public void initializeComboBoxDepartmentAction() {
+		Callback<ListView<Department>, ListCell<Department>> factory = lv -> new ListCell<Department>() {
+			@Override
+			protected void updateItem(Department item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(empty ? "" : item.getName());
+			}
+		};
+		comboBoxDepartment.setCellFactory(factory);
+		comboBoxDepartment.setButtonCell(factory.call(null));
 	}
 	
 }
