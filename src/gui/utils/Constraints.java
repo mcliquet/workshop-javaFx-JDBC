@@ -1,4 +1,4 @@
-package gui.util;
+package gui.utils;
 
 import javafx.scene.control.TextField;
 

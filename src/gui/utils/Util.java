@@ -1,4 +1,4 @@
-package gui.util;
+package gui.utils;
 
 
 import java.text.SimpleDateFormat;
@@ -15,7 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-public class Utils {
+public class Util {
 	
 	public static Stage currentStage(ActionEvent event) {
 		return (Stage) ((Node) event.getSource()).getScene().getWindow();

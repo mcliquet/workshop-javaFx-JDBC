@@ -9,9 +9,9 @@ import java.util.Set;
 
 import db.DbException;
 import gui.listeners.DataChangeListener;
-import gui.util.Alerts;
-import gui.util.Constraints;
-import gui.util.Utils;
+import gui.utils.Alerts;
+import gui.utils.Constraints;
+import gui.utils.Util;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -71,7 +71,7 @@ public class DepartmentFormController implements Initializable{
 			service.saveOrUpdate(entity);
 			//fecha a tela depois do update salvar
 			notifyDataChangeListeners();
-			Utils.currentStage(event).close();
+			Util.currentStage(event).close();
 		}
 		catch(ValidationException e) {
 			setErrorMessages(e.getErrors());
@@ -93,7 +93,7 @@ public class DepartmentFormController implements Initializable{
 		
 		ValidationException exception = new ValidationException("Validation error");
 		
-		obj.setId(Utils.tryParseToInt(txtId.getText()));
+		obj.setId(Util.tryParseToInt(txtId.getText()));
 		
 		if(txtName.getText() == null || txtName.getText().trim().equals(" ")) {
 			exception.addError("name", "Field can't be empty");
@@ -109,7 +109,7 @@ public class DepartmentFormController implements Initializable{
 
 	@FXML
 	public void onBtCancelAction(ActionEvent event) {
-		Utils.currentStage(event).close();
+		Util.currentStage(event).close();
 	}
 	
 	

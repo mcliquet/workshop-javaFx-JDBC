@@ -15,9 +15,9 @@ import java.util.Set;
 
 import db.DbException;
 import gui.listeners.DataChangeListener;
-import gui.util.Alerts;
-import gui.util.Constraints;
-import gui.util.Utils;
+import gui.utils.Alerts;
+import gui.utils.Constraints;
+import gui.utils.Util;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 //import javafx.collections.ObservableList;
@@ -91,9 +91,8 @@ public class SellerFormController implements Initializable {
 		this.entity = entity;
 	}
 	
-	public void setSellerService(SellerService service, DepartmentService departmentService) {
+	public void setSellerService(SellerService service) {
 		this.service = service;
-		this.departmentService = departmentService;
 	}
 	
 	public void subscribeDataChangeListener(DataChangeListener listener) {
@@ -126,7 +125,7 @@ public class SellerFormController implements Initializable {
 			service.saveOrUpdate(entity);
 			//fecha a tela depois do update salvar
 			notifyDataChangeListeners();
-			Utils.currentStage(event).close();
+			Util.currentStage(event).close();
 		}
 		catch(ValidationException e) {
 			setErrorMessages(e.getErrors());
@@ -148,7 +147,7 @@ public class SellerFormController implements Initializable {
 		
 		ValidationException exception = new ValidationException("Validation error");
 		
-		obj.setId(Utils.tryParseToInt(txtId.getText()));
+		obj.setId(Util.tryParseToInt(txtId.getText()));
 		
 		if(txtName.getText() == null || txtName.getText().trim().equals("")) {
 			exception.addError("name", "Field can't be empty");
@@ -184,7 +183,7 @@ public class SellerFormController implements Initializable {
 	
 	@FXML
 	public void onBtCancelAction(ActionEvent event) {
-		Utils.currentStage(event).close();
+		Util.currentStage(event).close();
 	}
 	
 	
@@ -198,7 +197,7 @@ public class SellerFormController implements Initializable {
 		Constraints.setTextFieldMaxLength(txtName, 70);
 		Constraints.setTextFieldDouble(txtBaseSalary);
 		Constraints.setTextFieldMaxLength(txtEmail, 60);
-		Utils.formatDatePicker(dpBirthDate, "dd/MM/yyyy");
+		Util.formatDatePicker(dpBirthDate, "dd/MM/yyyy");
 		
 		onComboBoxDepartmentAction();
 	}

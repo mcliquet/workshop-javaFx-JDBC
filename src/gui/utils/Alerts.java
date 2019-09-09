@@ -1,4 +1,4 @@
-package gui.util;
+package gui.utils;
 
 import java.util.Optional;
 
